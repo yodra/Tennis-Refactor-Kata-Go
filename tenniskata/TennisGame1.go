@@ -1,33 +1,31 @@
 package tenniskata
 
 type tennisGame1 struct {
-	m_score1    int
-	m_score2    int
-	player1Name string
-	player2Name string
+	pointPlayer1 int
+	pointPlayer2 int
+	player1Name  string
+	player2Name  string
 }
 
 func TennisGame1(player1Name string, player2Name string) TennisGame {
 	game := &tennisGame1{
 		player1Name: player1Name,
 		player2Name: player2Name}
-
 	return game
 }
 
 func (game *tennisGame1) WonPoint(playerName string) {
 	if playerName == "player1" {
-		game.m_score1 += 1
+		game.pointPlayer1 += 1
 	} else {
-		game.m_score2 += 1
+		game.pointPlayer2 += 1
 	}
 }
 
 func (game *tennisGame1) GetScore() string {
 	score := ""
-	tempScore := 0
-	if game.m_score1 == game.m_score2 {
-		switch game.m_score1 {
+	if game.pointPlayer1 == game.pointPlayer2 {
+		switch game.pointPlayer1 {
 		case 0:
 			score = "Love-All"
 		case 1:
@@ -37,8 +35,10 @@ func (game *tennisGame1) GetScore() string {
 		default:
 			score = "Deuce"
 		}
-	} else if game.m_score1 >= 4 || game.m_score2 >= 4 {
-		minusResult := game.m_score1 - game.m_score2
+	} else if game.pointPlayer1 >= 4 || game.pointPlayer2 >= 4 {
+
+		minusResult := game.pointPlayer1 - game.pointPlayer2
+
 		if minusResult == 1 {
 			score = "Advantage player1"
 		} else if minusResult == -1 {
@@ -49,24 +49,37 @@ func (game *tennisGame1) GetScore() string {
 			score = "Win for player2"
 		}
 	} else {
-		for i := 1; i < 3; i++ {
-			if i == 1 {
-				tempScore = game.m_score1
-			} else {
-				score += "-"
-				tempScore = game.m_score2
-			}
-			switch tempScore {
-			case 0:
-				score += "Love"
-			case 1:
-				score += "Fifteen"
-			case 2:
-				score += "Thirty"
-			case 3:
-				score += "Forty"
-			}
-		}
+		_ = getPoint(game.pointPlayer1, score)
+		// setMatch = game.pointPlayer1
+		score += "-"
+		// setMatch = game.pointPlayer2
+		_ = getPoint(game.pointPlayer2, score)
 	}
 	return score
+}
+
+func getPoint(matchPoint int, score string) string {
+
+	switch matchPoint {
+
+	case '0':
+
+		score += "Love"
+
+	case 1:
+
+		score += "Fifteen"
+
+	case 2:
+
+		score += "Thirty"
+
+	case 3:
+
+		score += "Forty"
+
+	}
+
+	return score
+
 }
