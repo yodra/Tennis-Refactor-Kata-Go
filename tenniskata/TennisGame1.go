@@ -24,49 +24,54 @@ func (game *tennisGame1) WonPoint(playerName string) {
 }
 
 func (game *tennisGame1) GetScore() string {
-	score := ""
-	tempScore := 0
 	if game.m_score1 == game.m_score2 {
-		switch game.m_score1 {
-		case 0:
-			score = "Love-All"
-		case 1:
-			score = "Fifteen-All"
-		case 2:
-			score = "Thirty-All"
-		default:
-			score = "Deuce"
-		}
+		return getDrawScore(game.m_score1)
 	} else if game.m_score1 >= 4 || game.m_score2 >= 4 {
-		minusResult := game.m_score1 - game.m_score2
-		if minusResult == 1 {
-			score = "Advantage player1"
-		} else if minusResult == -1 {
-			score = "Advantage player2"
-		} else if minusResult >= 2 {
-			score = "Win for player1"
-		} else {
-			score = "Win for player2"
-		}
+		return getWinScore(game.m_score1, game.m_score2)
 	} else {
-		for i := 1; i < 3; i++ {
-			if i == 1 {
-				tempScore = game.m_score1
-			} else {
-				score += "-"
-				tempScore = game.m_score2
-			}
-			switch tempScore {
-			case 0:
-				score += "Love"
-			case 1:
-				score += "Fifteen"
-			case 2:
-				score += "Thirty"
-			case 3:
-				score += "Forty"
-			}
-		}
+		return getNormalScore(game.m_score1, game.m_score2)
 	}
+}
+
+func getDrawScore(score int) string {
+	switch score {
+	case 0:
+		return "Love-All"
+	case 1:
+		return "Fifteen-All"
+	case 2:
+		return "Thirty-All"
+	default:
+		return "Deuce"
+	}
+}
+
+func getWinScore(player1Score int, player2Score int) string {
+	minusResult := player1Score - player2Score
+
+	switch {
+	case minusResult == -1:
+		return "Advantage player2"
+	case minusResult == 1:
+		return "Advantage player1"
+	case minusResult >= 2:
+		return "Win for player1"
+	default:
+		return "Win for player2"
+	}
+}
+
+func getNormalScore(player1Score int, player2Score int) string {
+	pointsValue := map[int]string{
+		0: "Love",
+		1: "Fifteen",
+		2: "Thirty",
+		3: "Forty",
+	}
+
+	score := pointsValue[player1Score]
+	score += "-"
+	score += pointsValue[player2Score]
+
 	return score
 }
