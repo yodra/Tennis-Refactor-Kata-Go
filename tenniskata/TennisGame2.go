@@ -18,18 +18,25 @@ func TennisGame2(player1Name string, player2Name string) TennisGame {
 	return game
 }
 
+func getScore(point int) string {
+	score := ""
+	switch point {
+	case 0:
+		score = "Love"
+	case 1:
+		score = "Fifteen"
+	case 2:
+		score = "Thirty"
+	case 3:
+		score = "Forty"
+	}
+
+	return score
+}
 func (game *tennisGame2) GetScore() string {
 	score := ""
 	if game.P1point == game.P2point && game.P1point < 4 {
-		if game.P1point == 0 {
-			score = "Love"
-		}
-		if game.P1point == 1 {
-			score = "Fifteen"
-		}
-		if game.P1point == 2 {
-			score = "Thirty"
-		}
+		score = getScore(game.P1point)
 		score += "-All"
 	}
 	if game.P1point == game.P2point && game.P1point >= 3 {
@@ -37,62 +44,27 @@ func (game *tennisGame2) GetScore() string {
 	}
 
 	if game.P1point > 0 && game.P2point == 0 {
-		if game.P1point == 1 {
-			game.P1res = "Fifteen"
-		}
-		if game.P1point == 2 {
-			game.P1res = "Thirty"
-		}
-		if game.P1point == 3 {
-			game.P1res = "Forty"
-		}
-
+		game.P1res = getScore(game.P1point)
 		game.P2res = "Love"
 		score = game.P1res + "-" + game.P2res
 	}
 	if game.P2point > 0 && game.P1point == 0 {
-		if game.P2point == 1 {
-			game.P2res = "Fifteen"
-		}
-		if game.P2point == 2 {
-			game.P2res = "Thirty"
-		}
-		if game.P2point == 3 {
-			game.P2res = "Forty"
-		}
+		game.P2res = getScore(game.P2point)
 
 		game.P1res = "Love"
 		score = game.P1res + "-" + game.P2res
 	}
 
 	if game.P1point > game.P2point && game.P1point < 4 {
-		if game.P1point == 2 {
-			game.P1res = "Thirty"
-		}
-		if game.P1point == 3 {
-			game.P1res = "Forty"
-		}
-		if game.P2point == 1 {
-			game.P2res = "Fifteen"
-		}
-		if game.P2point == 2 {
-			game.P2res = "Thirty"
-		}
+		game.P1res = getScore(game.P1point)
+
+		game.P2res = getScore(game.P2point)
 		score = game.P1res + "-" + game.P2res
 	}
 	if game.P2point > game.P1point && game.P2point < 4 {
-		if game.P2point == 2 {
-			game.P2res = "Thirty"
-		}
-		if game.P2point == 3 {
-			game.P2res = "Forty"
-		}
-		if game.P1point == 1 {
-			game.P1res = "Fifteen"
-		}
-		if game.P1point == 2 {
-			game.P1res = "Thirty"
-		}
+		game.P1res = getScore(game.P1point)
+
+		game.P2res = getScore(game.P2point)
 		score = game.P1res + "-" + game.P2res
 	}
 
