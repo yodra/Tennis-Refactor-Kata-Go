@@ -1,3 +1,3 @@
-module github.com/emilybache/Tennis-Refactoring-Kata/go/tenniskata
+module github.com/yodra/Tennis-Refactoring-Kata-Go/tenniskata
 
 go 1.16
