@@ -17,3 +17,10 @@ On the command line, enter the ```.../Tennis-Refactoring-Kata-Go``` directory an
 ```
 go test ./...
 ```
+
+## Instructions
+
+1. Choose a game (1, 2 or 3)
+2. Refactor keeping the tests green
+3. Refactor tests to use testify library
+4. Create a PR with the team name
